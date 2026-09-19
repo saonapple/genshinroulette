@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>原神 全キャラルーレット</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:"Yu Gothic",Meiryo,"Noto Sans JP",sans-serif;color:#fff;background:#0b2845}body{overflow-x:hidden}
+#bg{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center top;
+  z-index:0;
+}
+
+#shade{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(
+    90deg,
+    rgba(5,31,58,.18),
+    rgba(5,31,58,.04),
+    rgba(5,31,58,.32)
+  );
+  z-index:1;
+  pointer-events:none;
+}
+.top{
+  position:relative;
+  z-index:2;
+  height:66px;
+  padding:12px 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  text-shadow:0 2px 5px #000
+}.brand{font-weight:900;letter-spacing:.08em;font-size:20px}.brand small{display:block;font-size:10px;opacity:.8;letter-spacing:.12em}
+.layout{
+  position:relative;
+  z-index:2;
+  max-width:1450px;
+  margin:auto;
+  padding:5px 18px 22px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 300px;
+  gap:18px
+}.main{display:flex;flex-direction:column;align-items:center;min-width:0}.title{font-size:clamp(27px,3vw,43px);font-weight:900;letter-spacing:.1em;text-shadow:0 3px 8px #000;margin:0 0 4px}.subtitle{font-size:12px;margin-bottom:5px;text-shadow:0 2px 4px #000}
+.wheelWrap{width:min(790px,84vw);aspect-ratio:1;position:relative;filter:drop-shadow(0 12px 18px #0009)}#wheel{width:100%;height:100%;display:block}.pointer{position:absolute;left:50%;top:-6px;transform:translateX(-50%);width:0;height:0;border-left:24px solid transparent;border-right:24px solid transparent;border-top:44px solid #e7191d;filter:drop-shadow(0 2px 2px #000);z-index:8}.pointer:after{content:"";position:absolute;left:-20px;top:-44px;border-left:20px solid transparent;border-right:20px solid transparent;border-top:37px solid #ff3438}
+.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:82px;height:82px;border-radius:50%;display:block;background:radial-gradient(circle,#163a5d 0 47%,#d3a653 49% 56%,#102a43 58% 100%);border:4px solid #f2d28b;box-shadow:0 3px 12px #000b;z-index:6;color:#fff1bd}.center::before{content:"✦";position:absolute;left:50%;top:50%;transform:translate(-50%,-53%);font-size:37px;line-height:1;font-weight:400;color:#fff1bd;text-shadow:0 1px 3px #0008}
+.controls{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin:13px 0 11px}button{font:inherit;cursor:pointer}.secondary{border:1px solid #ffffff55;border-radius:24px;padding:10px 18px;background:#123c63e8;color:#fff;font-weight:800;box-shadow:0 3px 7px #0005}.spin{min-width:290px;padding:14px 32px;border:3px solid #d7aa58;border-radius:15px;background:linear-gradient(#fff0c5,#d9aa57);color:#25374a;font-weight:900;font-size:20px;box-shadow:inset 0 1px #fff,0 5px 12px #0007}.spin:disabled{opacity:.55;cursor:not-allowed}.toggle{padding:9px 12px;border-radius:20px;background:#123b61dd;border:1px solid #ffffff35;font-size:12px}.toggle input{accent-color:#74b8ff;vertical-align:middle}
+.result{width:min(790px,84vw);min-height:108px;padding:14px 20px;text-align:center;border-radius:15px;border:1px solid #ffffff3d;background:linear-gradient(135deg,rgba(7,35,63,.92),rgba(18,66,100,.86));box-shadow:0 8px 18px #0007}.result .label{color:#f5d486;font-weight:900;letter-spacing:.15em;font-size:13px}.result .name{font-size:31px;font-weight:900;margin-top:5px;text-shadow:0 2px 5px #000}.result .el{font-size:12px;opacity:.85}
+.side{align-self:start;position:sticky;top:10px;max-height:calc(100vh - 20px);display:flex;flex-direction:column;padding:13px;background:linear-gradient(180deg,rgba(7,31,55,.95),rgba(10,43,73,.91));border:1px solid #ffffff38;border-radius:15px;box-shadow:0 9px 22px #0008}.side h2{font-size:16px;margin:0 0 9px}.search{width:100%;padding:9px 11px;background:#061b2fdd;border:1px solid #ffffff40;border-radius:9px;color:#fff;outline:0}.filters{display:flex;flex-wrap:wrap;gap:4px;margin:9px 0}.filter{border:1px solid #ffffff25;border-radius:12px;background:#153f65;color:#fff;padding:4px 7px;font-size:10px}.filter.active{background:#d5a552;color:#15283d;font-weight:900}.list{overflow:auto;min-height:180px}.item{display:flex;align-items:center;gap:7px;padding:6px;border-bottom:1px solid #ffffff12;font-size:12px}.item.win{background:#e5b95535}.dot{width:10px;height:10px;border-radius:50%;border:1px solid #fff8;flex:0 0 auto}.history{border-top:1px solid #ffffff22;margin-top:9px;padding-top:9px}.history h3{margin:0 0 5px;color:#f4d38a;font-size:11px}.hist{display:flex;justify-content:space-between;padding:4px 2px;border-bottom:1px solid #ffffff12;font-size:10px}.note{margin-top:8px;font-size:9px;line-height:1.45;opacity:.6}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.side{position:relative;top:auto;max-height:420px}.wheelWrap,.result{width:min(94vw,790px)}}
+</style></head>
+<body>
+<img id="bg" alt="背景画像" src="landscape-scenery-genshin-impact-anime-video-game-wallpaper-3840x2160_54.jpg"><div id="shade"></div>
+<header class="top"><div class="brand">原神 CHARACTER ROULETTE<small>全キャラからランダム抽選</small></div><div id="countTop"></div></header>
+<div class="layout"><main class="main"><div class="title">全キャラルーレット</div><div class="subtitle">〜 あなたの推しが、きっと見つかる 〜</div>
+<div class="wheelWrap"><canvas id="wheel" width="900" height="900"></canvas><div class="pointer"></div><div class="center"></div></div>
+<div class="controls"><button class="secondary" id="reset">↻ リセット</button><button class="spin" id="spin">▶ ルーレットを回す</button><label class="toggle">前回のキャラを除外 <input id="exclude" type="checkbox"></label></div>
+<section class="result"><div class="label">✦　結　果　✦</div><div class="name" id="resultName">現在、抽選待ち…</div><div class="el" id="resultElement">—</div></section></main>
+<aside class="side"><h2>♟ キャラクター一覧（全<span id="count"></span>人）</h2><input id="search" class="search" placeholder="🔍 キャラ名で検索…"><div id="filters" class="filters"></div><div id="list" class="list"></div><div class="history"><h3>★ 抽選履歴（最新5件）</h3><div id="history"></div></div><div class="note">ルーレット内の順番はリセット時にランダム化されます。全キャラクターの抽選確率は同一です。</div></aside></div>
+<script>
+'use strict';
+const CHARACTERS=[{"name":"ジン","element":"Anemo"},{"name":"チャスカ","element":"Anemo"},{"name":"楓原万葉","element":"Anemo"},{"name":"夢見月瑞希","element":"Anemo"},{"name":"ファルカ","element":"Anemo"},{"name":"ウェンティ","element":"Anemo"},{"name":"放浪者","element":"Anemo"},{"name":"閑雲","element":"Anemo"},{"name":"魈","element":"Anemo"},{"name":"タルタリヤ","element":"Hydro"},{"name":"コロンビーナ","element":"Hydro"},{"name":"フリーナ","element":"Hydro"},{"name":"神里綾人","element":"Hydro"},{"name":"モナ","element":"Hydro"},{"name":"ムアラニ","element":"Hydro"},{"name":"ヌヴィレット","element":"Hydro"},{"name":"ニィロウ","element":"Hydro"},{"name":"珊瑚宮心海","element":"Hydro"},{"name":"シグウィン","element":"Hydro"},{"name":"夜蘭","element":"Hydro"},{"name":"アルベド","element":"Geo"},{"name":"荒瀧一斗","element":"Geo"},{"name":"千織","element":"Geo"},{"name":"リンネア","element":"Geo"},{"name":"ナヴィア","element":"Geo"},{"name":"シロネン","element":"Geo"},{"name":"鍾離","element":"Geo"},{"name":"茲白","element":"Geo"},{"name":"クロリンデ","element":"Electro"},{"name":"セノ","element":"Electro"},{"name":"フリンズ","element":"Electro"},{"name":"イネファ","element":"Electro"},{"name":"刻晴","element":"Electro"},{"name":"雷電将軍","element":"Electro"},{"name":"ヴァレサ","element":"Electro"},{"name":"八重神子","element":"Electro"},{"name":"アルハイゼン","element":"Dendro"},{"name":"白朮","element":"Dendro"},{"name":"エミリエ","element":"Dendro"},{"name":"キィニチ","element":"Dendro"},{"name":"ラウマ","element":"Dendro"},{"name":"ナヒーダ","element":"Dendro"},{"name":"ネフェル","element":"Dendro"},{"name":"ティナリ","element":"Dendro"},{"name":"アルレッキーノ","element":"Pyro"},{"name":"ディシア","element":"Pyro"},{"name":"ディルック","element":"Pyro"},{"name":"ドゥリン","element":"Pyro"},{"name":"胡桃","element":"Pyro"},{"name":"クレー","element":"Pyro"},{"name":"リネ","element":"Pyro"},{"name":"マーヴィカ","element":"Pyro"},{"name":"ニコ","element":"Pyro"},{"name":"宵宮","element":"Pyro"},{"name":"アーロイ","element":"Cryo"},{"name":"シトラリ","element":"Cryo"},{"name":"エスコフィエ","element":"Cryo"},{"name":"エウルア","element":"Cryo"},{"name":"甘雨","element":"Cryo"},{"name":"神里綾華","element":"Cryo"},{"name":"ローエン","element":"Cryo"},{"name":"七七","element":"Cryo"},{"name":"サンドローネ","element":"Cryo"},{"name":"申鶴","element":"Cryo"},{"name":"スカーク","element":"Cryo"},{"name":"リオセスリ","element":"Cryo"},{"name":"イファ","element":"Anemo"},{"name":"ヤフォダ","element":"Anemo"},{"name":"藍硯","element":"Anemo"},{"name":"リネット","element":"Anemo"},{"name":"プルーネ","element":"Anemo"},{"name":"早柚","element":"Anemo"},{"name":"鹿野院平蔵","element":"Anemo"},{"name":"スクロース","element":"Anemo"},{"name":"アイノ","element":"Hydro"},{"name":"バーバラ","element":"Hydro"},{"name":"キャンディス","element":"Hydro"},{"name":"ダリア","element":"Hydro"},{"name":"行秋","element":"Hydro"},{"name":"ゴロー","element":"Geo"},{"name":"イルーガ","element":"Geo"},{"name":"カチーナ","element":"Geo"},{"name":"凝光","element":"Geo"},{"name":"ノエル","element":"Geo"},{"name":"雲菫","element":"Geo"},{"name":"北斗","element":"Electro"},{"name":"ドリー","element":"Electro"},{"name":"フィッシュル","element":"Electro"},{"name":"イアンサ","element":"Electro"},{"name":"九条裟羅","element":"Electro"},{"name":"久岐忍","element":"Electro"},{"name":"リサ","element":"Electro"},{"name":"オロルン","element":"Electro"},{"name":"レザー","element":"Electro"},{"name":"セトス","element":"Electro"},{"name":"コレイ","element":"Dendro"},{"name":"カーヴェ","element":"Dendro"},{"name":"綺良々","element":"Dendro"},{"name":"ヨォーヨ","element":"Dendro"},{"name":"アンバー","element":"Pyro"},{"name":"ベネット","element":"Pyro"},{"name":"シュヴルーズ","element":"Pyro"},{"name":"嘉明","element":"Pyro"},{"name":"トーマ","element":"Pyro"},{"name":"香菱","element":"Pyro"},{"name":"辛炎","element":"Pyro"},{"name":"煙緋","element":"Pyro"},{"name":"シャルロット","element":"Cryo"},{"name":"重雲","element":"Cryo"},{"name":"ディオナ","element":"Cryo"},{"name":"フレミネ","element":"Cryo"},{"name":"ガイア","element":"Cryo"},{"name":"レイラ","element":"Cryo"},{"name":"ミカ","element":"Cryo"},{"name":"ロサリア","element":"Cryo"},{"name":"旅人","element":"Traveler"},{"name":"オデット","element":"Cryo"},{"name":"アリョーシャ","element":"Electro"},{"name":"ヴェスナ","element":"Anemo"},{"name":"ヴォジャニーツァ","element":"Hydro"},{"name":"ドール","element":"Traveler"}];
+const COLORS={Anemo:'#7ee67b',Hydro:'#4b8df8',Pyro:'#ff766b',Electro:'#a56be8',Dendro:'#73c957',Cryo:'#80c9ff',Geo:'#e7b94f',Traveler:'traveler'};
+const LABEL={Anemo:'風',Hydro:'水',Pyro:'炎',Electro:'雷',Dendro:'草',Cryo:'氷',Geo:'岩',Traveler:'旅人'};
+let chars=[],angle=0,spinning=false,lastWinner=null,history=[];
+function randInt(max){if(max<=1)return 0;try{const a=new Uint32Array(1);crypto.getRandomValues(a);return Math.floor(a[0]/4294967296*max)}catch(e){return Math.floor(Math.random()*max)}}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){let j=randInt(i+1);[a[i],a[j]]=[a[j],a[i]]}return a}
+function elementColor(el){return el==='Traveler'?null:COLORS[el]}
+function draw(){
+ const c=document.getElementById('wheel'),ctx=c.getContext('2d'),W=c.width,H=c.height,cx=W/2,cy=H/2,R=410,n=chars.length,step=Math.PI*2/n;
+ ctx.clearRect(0,0,W,H);ctx.save();ctx.translate(cx,cy);ctx.rotate(angle-Math.PI/2);
+ for(let i=0;i<n;i++){const ch=chars[i],a0=i*step,a1=a0+step;ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,R,a0,a1);ctx.closePath();
+  if(ch.element==='Traveler'){const g=ctx.createLinearGradient(-R,-R,R,R);g.addColorStop(0,'#72d7bd');g.addColorStop(.25,'#e2bd61');g.addColorStop(.5,'#8cc8ff');g.addColorStop(.75,'#ad86e8');g.addColorStop(1,'#ff9b82');ctx.fillStyle=g}else ctx.fillStyle=COLORS[ch.element];
+  ctx.fill();ctx.strokeStyle='rgba(255,255,255,.52)';ctx.lineWidth=1;ctx.stroke();
+  // Vertical Japanese label, stacked inside the sector. It is clipped to a safe radial band.
+  const letters=[...ch.name];const fs=letters.length>=6?10:letters.length>=5?11:12;const gap=fs+2;const total=letters.length*gap-2;ctx.save();ctx.rotate(a0+step/2);ctx.translate(R*.70,0);ctx.rotate(Math.PI/2);
+  ctx.font='900 '+fs+'px "Yu Gothic",Meiryo,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#172536';ctx.shadowColor='rgba(255,255,255,.55)';ctx.shadowBlur=2;
+  for(let k=0;k<letters.length;k++)ctx.fillText(letters[k],0,-total/2+k*gap);ctx.restore();
+ }
+ ctx.restore();ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);ctx.strokeStyle='#152a3e';ctx.lineWidth=17;ctx.stroke();ctx.beginPath();ctx.arc(cx,cy,R+2,0,Math.PI*2);ctx.strokeStyle='#efc873';ctx.lineWidth=3;ctx.stroke();
+}
+function renderList(){const q=document.getElementById('search').value.trim().toLowerCase();const active=document.querySelector('.filter.active')?.dataset.el||'all';const box=document.getElementById('list');box.innerHTML='';chars.forEach(ch=>{if(q&&!ch.name.toLowerCase().includes(q))return;if(active!=='all'&&ch.element!==active)return;const row=document.createElement('div');row.className='item'+(lastWinner===ch.name?' win':'');const dot=document.createElement('span');dot.className='dot';if(ch.element==='Traveler')dot.style.background='linear-gradient(135deg,#72d7bd,#e2bd61,#8cc8ff)';else dot.style.background=COLORS[ch.element];const text=document.createElement('span');text.textContent=ch.name;row.append(dot,text);box.append(row)})}
+function setupFilters(){const box=document.getElementById('filters');[['all','全て'],['Anemo','風'],['Hydro','水'],['Pyro','炎'],['Electro','雷'],['Dendro','草'],['Cryo','氷'],['Geo','岩'],['Traveler','旅人']].forEach(([el,label])=>{const b=document.createElement('button');b.className='filter'+(el==='all'?' active':'');b.dataset.el=el;b.textContent=label;b.onclick=()=>{document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderList()};box.append(b)})}
+
+// Web Audio effects
+// 回転中はMP3をループ再生し、抽選結果の音はWeb Audioで鳴らす
+
+let audioCtx = null;
+
+// 回転中のMP3
+const spinAudio = new Audio("Roulette-Digital04-3(Long).mp3");
+spinAudio.loop = true;
+spinAudio.preload = "auto";
+spinAudio.volume = 0.8;
+
+function ensureAudio(){
+  if(!audioCtx){
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+
+  if(audioCtx.state === "suspended"){
+    audioCtx.resume();
+  }
+}
+
+// ルーレット回転開始
+function startSpinSound(){
+  spinAudio.currentTime = 0;
+
+  spinAudio.play().catch(err => {
+    console.log("回転中のMP3を再生できませんでした:", err);
+  });
+}
+
+// ルーレット停止
+function stopSpinSound(){
+  spinAudio.pause();
+  spinAudio.currentTime = 0;
+}
+
+// 抽選結果の音
+function playResultSound(){
+  ensureAudio();
+
+  const now = audioCtx.currentTime;
+  const notes = [523.25, 659.25, 783.99, 1046.5];
+
+  notes.forEach((f, i) => {
+    const t = now + i * 0.11;
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+
+    o.type = "sine";
+    o.frequency.setValueAtTime(f, t);
+
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.12, t + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.25);
+
+    o.connect(g);
+    g.connect(audioCtx.destination);
+
+    o.start(t);
+    o.stop(t + 0.27);
+  });
+}
+function resetWheel(){chars=shuffle(CHARACTERS);angle=0;lastWinner=null;document.getElementById('resultName').textContent='現在、抽選待ち…';document.getElementById('resultElement').textContent='—';draw();renderList()}
+function addHistory(w){history.unshift({name:w.name,time:new Date()});history=history.slice(0,5);const box=document.getElementById('history');box.innerHTML='';history.forEach(h=>{const row=document.createElement('div');row.className='hist';row.innerHTML='<span></span><span></span>';row.children[0].textContent=h.name;row.children[1].textContent=h.time.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});box.append(row)})}
+function spin(){if(spinning)return;spinning=true;document.getElementById('spin').disabled=true;startSpinSound();let pool=chars;if(document.getElementById('exclude').checked&&lastWinner)pool=chars.filter(x=>x.name!==lastWinner);const winner=pool[randInt(pool.length)];const idx=chars.findIndex(x=>x.name===winner.name);const step=Math.PI*2/chars.length;
+ // Canvas pointer is fixed at the top center (-90° in screen coordinates). The winning sector center is moved exactly to it.
+ const target=-((idx+.5)*step);const cur=((angle%(Math.PI*2))+Math.PI*2)%(Math.PI*2);let delta=((target-cur)%(Math.PI*2)+Math.PI*2)%(Math.PI*2);delta+=(7+randInt(4))*Math.PI*2;const start=angle,end=angle+delta,dur=5200,t0=performance.now();
+ function frame(now){const p=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-p,4);angle=start+(end-start)*e;draw();if(p<1)requestAnimationFrame(frame);else{angle=end;draw();stopSpinSound();playResultSound();spinning=false;document.getElementById('spin').disabled=false;lastWinner=winner.name;document.getElementById('resultName').textContent=winner.name;document.getElementById('resultElement').textContent='元素：'+LABEL[winner.element];addHistory(winner);renderList()}}requestAnimationFrame(frame)}
+document.getElementById('spin').addEventListener('click',spin);document.getElementById('reset').addEventListener('click',resetWheel);document.getElementById('search').addEventListener('input',renderList);document.getElementById('count').textContent=CHARACTERS.length;document.getElementById('countTop').textContent='全'+CHARACTERS.length+'人';setupFilters();resetWheel();
+</script></body></html>
